@@ -75,7 +75,7 @@ export interface InternalPipelineOptions extends PipelineOptions {
  * Create a new pipeline with a default set of customizable policies.
  * @param options - Options to configure a custom pipeline.
  */
-export function createPipelineFromOptions(options: InternalPipelineOptions): Pipeline {
+export async function createPipelineFromOptions(options: InternalPipelineOptions): Promise<Pipeline> {
   const pipeline = createEmptyPipeline();
 
   if (isNode) {
@@ -87,14 +87,14 @@ export function createPipelineFromOptions(options: InternalPipelineOptions): Pip
   }
 
   pipeline.addPolicy(formDataPolicy(), { beforePolicies: [multipartPolicyName] });
-  pipeline.addPolicy(userAgentPolicy(options.userAgentOptions));
+  pipeline.addPolicy(await userAgentPolicy(options.userAgentOptions));
   pipeline.addPolicy(setClientRequestIdPolicy(options.telemetryOptions?.clientRequestIdHeaderName));
   // The multipart policy is added after policies with no phase, so that
   // policies can be added between it and formDataPolicy to modify
   // properties (e.g., making the boundary constant in recorded tests).
   pipeline.addPolicy(multipartPolicy(), { afterPhase: "Deserialize" });
   pipeline.addPolicy(defaultRetryPolicy(options.retryOptions), { phase: "Retry" });
-  pipeline.addPolicy(tracingPolicy(options.userAgentOptions), { afterPhase: "Retry" });
+  pipeline.addPolicy(await tracingPolicy(options.userAgentOptions), { afterPhase: "Retry" });
   if (isNode) {
     // Both XHR and Fetch expect to handle redirects automatically,
     // so only include this policy when we're in Node.
