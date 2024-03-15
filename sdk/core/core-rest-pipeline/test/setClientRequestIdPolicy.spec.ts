@@ -31,7 +31,7 @@ describe("setClientRequestIdPolicy", function () {
   });
 
   it("should set the header name with `x-ms-client-request-id` if commonTelemetryOptions is empty", async () => {
-    const pipeline = createPipelineFromOptions({
+    const pipeline = await createPipelineFromOptions({
       telemetryOptions: {},
     });
     const pipelineRequest = createPipelineRequest({
@@ -54,7 +54,7 @@ describe("setClientRequestIdPolicy", function () {
 
   it("should set the header with custom header name if it is provided", async () => {
     const customHeaderName = "custom-client-request-id";
-    const pipeline = createPipelineFromOptions({
+    const pipeline = await createPipelineFromOptions({
       telemetryOptions: {
         clientRequestIdHeaderName: customHeaderName,
       },

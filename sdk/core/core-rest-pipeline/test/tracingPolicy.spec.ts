@@ -148,7 +148,7 @@ describe("tracingPolicy", function () {
   });
 
   it("will create a span with the correct data", async () => {
-    const policy = tracingPolicy();
+    const policy = await tracingPolicy();
     const { request, next } = createTestRequest();
     await policy.sendRequest(request, next);
 
@@ -169,7 +169,7 @@ describe("tracingPolicy", function () {
     });
     const { request, next } = createTestRequest();
 
-    const policy = tracingPolicy();
+    const policy = await tracingPolicy();
     await policy.sendRequest(request, next);
     assert.equal(request.headers.get("testheader"), "testvalue");
   });
@@ -182,7 +182,7 @@ describe("tracingPolicy", function () {
       },
     });
 
-    const policy = tracingPolicy();
+    const policy = await tracingPolicy();
     const next = vi.fn<Parameters<SendRequest>, ReturnType<SendRequest>>();
     const requestError = new RestError("Bad Request.", { statusCode: 400 });
     next.mockRejectedValue(requestError);
@@ -200,7 +200,7 @@ describe("tracingPolicy", function () {
   });
 
   it("will not create a span if tracingContext is missing", async () => {
-    const policy = tracingPolicy();
+    const policy = await tracingPolicy();
     const { request, next } = createTestRequest({ noContext: true });
     await policy.sendRequest(request, next);
 
@@ -214,7 +214,7 @@ describe("tracingPolicy", function () {
         throw "boom";
       });
       const { request, next } = createTestRequest();
-      const policy = tracingPolicy();
+      const policy = await tracingPolicy();
 
       await expect(policy.sendRequest(request, next)).resolves;
     });
@@ -226,7 +226,7 @@ describe("tracingPolicy", function () {
       });
       activeInstrumenter.setStaticSpan(mockSpan);
       const { request, next } = createTestRequest();
-      const policy = tracingPolicy();
+      const policy = await tracingPolicy();
 
       await expect(policy.sendRequest(request, next)).resolves;
     });
@@ -237,7 +237,7 @@ describe("tracingPolicy", function () {
         throw new Error("end is not a function");
       });
       const { request, next } = createTestRequest();
-      const policy = tracingPolicy();
+      const policy = await tracingPolicy();
       const expectedError = new RestError("Bad Request.", { statusCode: 400 });
       next.mockRejectedValue(expectedError);
 

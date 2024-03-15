@@ -390,7 +390,7 @@ describe("HttpsPipeline", function () {
         },
       };
 
-      const pipeline = createPipelineFromOptions({});
+      const pipeline = await createPipelineFromOptions({});
       const request = createPipelineRequest({ url: "https://example.com" });
       const response = await pipeline.sendRequest(testHttpClient, request);
       assert.strictEqual(response.status, 200);

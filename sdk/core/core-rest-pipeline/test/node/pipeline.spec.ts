@@ -29,7 +29,7 @@ describe("HttpsPipeline", function () {
     });
 
     it("should create a proxy agent", async function () {
-      const pipeline = createPipelineFromOptions({
+      const pipeline = await createPipelineFromOptions({
         proxyOptions: { host: "https://foo", port: 12345 },
       });
       const httpClient: HttpClient = {
@@ -54,7 +54,7 @@ describe("HttpsPipeline", function () {
 
     it("should honor proxy over tls", async function () {
       const fakePfx = "fakeCert";
-      const pipeline = createPipelineFromOptions({
+      const pipeline = await createPipelineFromOptions({
         proxyOptions: { host: "https://foo2", port: 12345 },
       });
       const httpClient: HttpClient = {

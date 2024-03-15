@@ -23,7 +23,7 @@ describe("defaultLogPolicy", function () {
       },
     };
 
-    const pipeline = createPipelineFromOptions({
+    const pipeline = await createPipelineFromOptions({
       retryOptions: { maxRetryDelayInMs: 0 },
     });
     pipeline.addPolicy(testSignPolicy, { phase: "Sign" });
