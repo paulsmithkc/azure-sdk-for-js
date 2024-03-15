@@ -26,7 +26,7 @@ describe("getClient", () => {
       });
 
       const apiVersion = "2021-11-18";
-      const client = getClient("https://example.org", { apiVersion });
+      const client = await getClient("https://example.org", { apiVersion });
       const validationPolicy: PipelinePolicy = {
         name: "validationPolicy",
         sendRequest: (req, next) => {
@@ -47,7 +47,7 @@ describe("getClient", () => {
 
       const clientApiVersion = "2021-11-18",
         operationApiVersion = "2022-01-01";
-      const client = getClient("https://example.org", { apiVersion: clientApiVersion });
+      const client = await getClient("https://example.org", { apiVersion: clientApiVersion });
       const validationPolicy: PipelinePolicy = {
         name: "validationPolicy",
         sendRequest: (req, next) => {
@@ -75,7 +75,7 @@ describe("getClient", () => {
 
       const clientApiVersion = "2021-11-18",
         operationApiVersion = "2022-01-01";
-      const client = getClient("https://example.org", { apiVersion: clientApiVersion });
+      const client = await getClient("https://example.org", { apiVersion: clientApiVersion });
       const validationPolicy: PipelinePolicy = {
         name: "validationPolicy",
         sendRequest: (req, next) => {
@@ -102,7 +102,7 @@ describe("getClient", () => {
       });
 
       const apiVersion = "2021-11-18";
-      const client = getClient("https://example.org", { apiVersion });
+      const client = await getClient("https://example.org", { apiVersion });
       const validationPolicy: PipelinePolicy = {
         name: "validationPolicy",
         sendRequest: (req, next) => {
@@ -131,7 +131,7 @@ describe("getClient", () => {
       });
 
       const apiVersion = "2021-11-18";
-      const client = getClient("https://example.org", { apiVersion });
+      const client = await getClient("https://example.org", { apiVersion });
       const validationPolicy: PipelinePolicy = {
         name: "validationPolicy",
         sendRequest: (req, next) => {
@@ -160,7 +160,7 @@ describe("getClient", () => {
     });
 
     const apiVersion = "2021-11-18";
-    const client = getClient("https://example.org", { apiVersion });
+    const client = await getClient("https://example.org", { apiVersion });
     const validationPolicy: PipelinePolicy = {
       name: "validationPolicy",
       sendRequest: (req, next) => {
@@ -189,7 +189,7 @@ describe("getClient", () => {
       sendRequest,
     };
 
-    const client = getClient("https://example.org?api-version=1233321", {
+    const client = await getClient("https://example.org?api-version=1233321", {
       additionalPolicies: [
         { policy: policy1, position: "perRetry" },
         { policy: policy2, position: "perCall" },
@@ -210,7 +210,7 @@ describe("getClient", () => {
       },
     };
 
-    const client = getClient("https://example.org", {
+    const client = await getClient("https://example.org", {
       allowInsecureConnection: true,
       httpClient: fakeHttpClient,
     });
@@ -228,7 +228,7 @@ describe("getClient", () => {
       },
     };
 
-    const client = getClient("https://example.org", {
+    const client = await getClient("https://example.org", {
       allowInsecureConnection: true,
       httpClient: fakeHttpClient,
     });
@@ -246,7 +246,7 @@ describe("getClient", () => {
       },
     };
 
-    const client = getClient("https://example.org", {
+    const client = await getClient("https://example.org", {
       httpClient: fakeHttpClient,
     });
     const res = client.pathUnchecked("/foo").get({

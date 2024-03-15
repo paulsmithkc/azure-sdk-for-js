@@ -43,7 +43,7 @@ describe("[Browser] Streams", () => {
     const fetchMock = vi.mocked(fetch);
     fetchMock.mockResolvedValue(createResponse(200, responseText));
 
-    const client = getClient(mockBaseUrl);
+    const client = await getClient(mockBaseUrl);
     const result = await client.pathUnchecked("/foo").get().asBrowserStream();
     const reader = result.body!.getReader();
     // Read the first chunk
@@ -56,7 +56,7 @@ describe("[Browser] Streams", () => {
     const responseText = "An appropriate response.";
 
     const fetchMock = vi.mocked(fetch);
-    const client = getClient(mockBaseUrl);
+    const client = await getClient(mockBaseUrl);
     fetchMock.mockResolvedValue(createResponse(200, responseText));
 
     const result = await client.pathUnchecked("/foo").get();
@@ -67,7 +67,7 @@ describe("[Browser] Streams", () => {
 
   it("should be able to handle errors on normal response", async () => {
     const fetchMock = vi.mocked(fetch);
-    const client = getClient(mockBaseUrl);
+    const client = await getClient(mockBaseUrl);
     fetchMock.mockRejectedValue(new Error("ExpectedException"));
     try {
       await client.pathUnchecked("/foo").get();
@@ -78,7 +78,7 @@ describe("[Browser] Streams", () => {
 
   it("should be able to handle errors on streamed response", async () => {
     const fetchMock = vi.mocked(fetch);
-    const client = getClient(mockBaseUrl);
+    const client = await getClient(mockBaseUrl);
     fetchMock.mockRejectedValue(new Error("ExpectedException"));
     try {
       await client.pathUnchecked("/foo").get().asNodeStream();

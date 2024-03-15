@@ -10,8 +10,8 @@ import { apiVersionPolicyName } from "../../src/client/apiVersionPolicy.js";
 
 describe("clientHelpers", () => {
   const mockBaseUrl = "https://example.org";
-  it("should create a default pipeline with no credentials", () => {
-    const pipeline = createDefaultPipeline(mockBaseUrl);
+  it("should create a default pipeline with no credentials", async () => {
+    const pipeline = await createDefaultPipeline(mockBaseUrl);
     const policies = pipeline.getOrderedPolicies();
 
     assert.isDefined(policies, "default pipeline should contain policies");
@@ -27,8 +27,8 @@ describe("clientHelpers", () => {
     );
   });
 
-  it("should create a default pipeline with apiVersion policy", () => {
-    const pipeline = createDefaultPipeline(mockBaseUrl);
+  it("should create a default pipeline with apiVersion policy", async () => {
+    const pipeline = await createDefaultPipeline(mockBaseUrl);
     const policies = pipeline.getOrderedPolicies();
 
     assert.isDefined(policies, "default pipeline should contain policies");
@@ -48,8 +48,8 @@ describe("clientHelpers", () => {
     }
   });
 
-  it("should create a default pipeline with key credentials", () => {
-    const pipeline = createDefaultPipeline(
+  it("should create a default pipeline with key credentials", async () => {
+    const pipeline = await createDefaultPipeline(
       mockBaseUrl,
       { key: "mockKey" },
       { credentials: { apiKeyHeaderName: "apiHeader" } },
@@ -69,11 +69,11 @@ describe("clientHelpers", () => {
     );
   });
 
-  it("should create a default pipeline with TokenCredential", () => {
+  it("should create a default pipeline with TokenCredential", async () => {
     const mockCredential: TokenCredential = {
       getToken: async () => ({ expiresOnTimestamp: 0, token: "mockToken" }),
     };
-    const pipeline = createDefaultPipeline(mockBaseUrl, mockCredential);
+    const pipeline = await createDefaultPipeline(mockBaseUrl, mockCredential);
     const policies = pipeline.getOrderedPolicies();
 
     assert.isDefined(policies, "default pipeline should contain policies");
