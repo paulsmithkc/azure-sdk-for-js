@@ -179,7 +179,7 @@ export interface CreateFileOptions {
 export function createHttpHeaders(rawHeaders?: RawHttpHeadersInput): HttpHeaders;
 
 // @public
-export function createPipelineFromOptions(options: InternalPipelineOptions): Pipeline;
+export function createPipelineFromOptions(options: InternalPipelineOptions): Promise<Pipeline>;
 
 // @public
 export function createPipelineRequest(options: PipelineRequestOptions): PipelineRequest;
@@ -263,10 +263,10 @@ export interface FullOperationResponse extends PipelineResponse {
 }
 
 // @public
-export function getClient(endpoint: string, options?: ClientOptions): Client;
+export function getClient(endpoint: string, options?: ClientOptions): Promise<Client>;
 
 // @public
-export function getClient(endpoint: string, credentials?: TokenCredential | KeyCredential, options?: ClientOptions): Client;
+export function getClient(endpoint: string, credentials?: TokenCredential | KeyCredential, options?: ClientOptions): Promise<Client>;
 
 // @public
 export function getDefaultProxySettings(proxyUrl?: string): ProxySettings | undefined;
@@ -764,7 +764,7 @@ export interface TracingContext {
 }
 
 // @public
-export function tracingPolicy(options?: TracingPolicyOptions): PipelinePolicy;
+export function tracingPolicy(options?: TracingPolicyOptions): Promise<PipelinePolicy>;
 
 // @public
 export const tracingPolicyName = "tracingPolicy";
@@ -837,7 +837,7 @@ export type UnknownObject = {
 export function useInstrumenter(instrumenter: Instrumenter): void;
 
 // @public
-export function userAgentPolicy(options?: UserAgentPolicyOptions): PipelinePolicy;
+export function userAgentPolicy(options?: UserAgentPolicyOptions): Promise<PipelinePolicy>;
 
 // @public
 export const userAgentPolicyName = "userAgentPolicy";

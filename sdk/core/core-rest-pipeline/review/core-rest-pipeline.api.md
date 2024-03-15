@@ -115,7 +115,7 @@ export interface CreateFileOptions {
 export function createHttpHeaders(rawHeaders?: RawHttpHeadersInput): HttpHeaders;
 
 // @public
-export function createPipelineFromOptions(options: InternalPipelineOptions): Pipeline;
+export function createPipelineFromOptions(options: InternalPipelineOptions): Promise<Pipeline>;
 
 // @public
 export function createPipelineRequest(options: PipelineRequestOptions): PipelineRequest;
@@ -471,7 +471,7 @@ export interface TlsSettings {
 }
 
 // @public
-export function tracingPolicy(options?: TracingPolicyOptions): PipelinePolicy;
+export function tracingPolicy(options?: TracingPolicyOptions): Promise<PipelinePolicy>;
 
 // @public
 export const tracingPolicyName = "tracingPolicy";
@@ -487,7 +487,7 @@ export type TransferProgressEvent = {
 };
 
 // @public
-export function userAgentPolicy(options?: UserAgentPolicyOptions): PipelinePolicy;
+export function userAgentPolicy(options?: UserAgentPolicyOptions): Promise<PipelinePolicy>;
 
 // @public
 export const userAgentPolicyName = "userAgentPolicy";
