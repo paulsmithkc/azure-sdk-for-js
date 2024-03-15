@@ -23,23 +23,23 @@ import { PipelineOptions } from "../createPipelineFromOptions.js";
  * @param endpoint - Base endpoint for the client
  * @param options - Client options
  */
-export function getClient(endpoint: string, options?: ClientOptions): Client;
+export async function getClient(endpoint: string, options?: ClientOptions): Promise<Client>;
 /**
  * Creates a client with a default pipeline
  * @param endpoint - Base endpoint for the client
  * @param credentials - Credentials to authenticate the requests
  * @param options - Client options
  */
-export function getClient(
+export async function getClient(
   endpoint: string,
   credentials?: TokenCredential | KeyCredential,
   options?: ClientOptions,
-): Client;
-export function getClient(
+): Promise<Client>;
+export async function getClient(
   endpoint: string,
   credentialsOrPipelineOptions?: (TokenCredential | KeyCredential) | ClientOptions,
   clientOptions: ClientOptions = {},
-): Client {
+): Promise<Client> {
   let credentials: TokenCredential | KeyCredential | undefined;
   if (credentialsOrPipelineOptions) {
     if (isCredential(credentialsOrPipelineOptions)) {
@@ -49,7 +49,7 @@ export function getClient(
     }
   }
 
-  const pipeline = createDefaultPipeline(endpoint, credentials, clientOptions);
+  const pipeline = await createDefaultPipeline(endpoint, credentials, clientOptions);
   if (clientOptions.additionalPolicies?.length) {
     for (const { policy, position } of clientOptions.additionalPolicies) {
       // Sign happens after Retry and is commonly needed to occur

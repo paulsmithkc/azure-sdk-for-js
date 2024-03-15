@@ -28,8 +28,8 @@ export interface UserAgentPolicyOptions {
  * the library version.
  * @param options - Options to customize the user agent value.
  */
-export function userAgentPolicy(options: UserAgentPolicyOptions = {}): PipelinePolicy {
-  const userAgentValue = getUserAgentValue(options.userAgentPrefix);
+export async function userAgentPolicy(options: UserAgentPolicyOptions = {}): Promise<PipelinePolicy> {
+  const userAgentValue = await getUserAgentValue(options.userAgentPrefix);
   return {
     name: userAgentPolicyName,
     async sendRequest(request: PipelineRequest, next: SendRequest): Promise<PipelineResponse> {

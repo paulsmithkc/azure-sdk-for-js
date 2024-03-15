@@ -62,12 +62,12 @@ export function addCredentialPipelinePolicy(
 /**
  * Creates a default rest pipeline to re-use accross Rest Level Clients
  */
-export function createDefaultPipeline(
+export async function createDefaultPipeline(
   endpoint: string,
   credential?: TokenCredential | KeyCredential,
   options: ClientOptions = {},
-): Pipeline {
-  const pipeline = createPipelineFromOptions(options);
+): Promise<Pipeline> {
+  const pipeline = await createPipelineFromOptions(options);
 
   pipeline.addPolicy(apiVersionPolicy(options));
 

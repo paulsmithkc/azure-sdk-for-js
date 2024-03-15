@@ -34,8 +34,8 @@ export interface TracingPolicyOptions {
  * Requests made without a parent Span will not be recorded.
  * @param options - Options to configure the telemetry logged by the tracing policy.
  */
-export function tracingPolicy(options: TracingPolicyOptions = {}): PipelinePolicy {
-  const userAgent = getUserAgentValue(options.userAgentPrefix);
+export async function tracingPolicy(options: TracingPolicyOptions = {}): Promise<PipelinePolicy> {
+  const userAgent = await getUserAgentValue(options.userAgentPrefix);
   const tracingClient = tryCreateTracingClient();
 
   return {
